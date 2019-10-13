@@ -1,7 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { VueLoaderPlugin } = require('vue-loader')
-const ChromeExtensionReloader  = require('webpack-chrome-extension-reloader');
+const { VueLoaderPlugin } = require('vue-loader');
+const ExtensionReloader  = require('webpack-extension-reloader');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -41,11 +42,18 @@ module.exports = {
       }
     ]
   },
+  devtool: false,
   plugins: [
     new MiniCssExtractPlugin({
       filename: `[name]-bundle.css`,
     }),
     new VueLoaderPlugin(),
-    new ChromeExtensionReloader()
+    new ExtensionReloader({
+      port: 9090, // Which port use to create the server
+    }),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[name].js.map',
+      exclude: ['vendor.js']
+    })
   ]
 };

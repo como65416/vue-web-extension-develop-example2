@@ -28,6 +28,7 @@
     "content_scripts": [
       {
         "matches": ["*://localhost/*"],
+        "matches": ["ws://localhost:9090/*"],
         "js": ["dist/content-script-1-bundle.js"]
       }
     ],
